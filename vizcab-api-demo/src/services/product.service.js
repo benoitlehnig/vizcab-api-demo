@@ -13,7 +13,17 @@ const productService = {
   },
   
   getProductDetails(id) {
-    return apiService.post(`/impacts/new/${id}`)
+    return apiService.post('/impacts/new',{
+      components: [
+        {
+          "epd_id": id,
+          "reference_service_life": 50,
+          "quantity": 1,
+          "config": "re2020",
+          }
+      ]
+    
+  })
   }
 }
 

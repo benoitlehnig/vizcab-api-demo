@@ -28,10 +28,10 @@
       <v-col cols="12">
         <v-card>
           <v-card-title>
-            {{ productStore.currentProduct.name }}
+            {{ productStore.currentProduct.details[0].name }}
           </v-card-title>
           <v-card-subtitle>
-            ID: {{ productStore.currentProduct.id }}
+            ID: {{ productStore.currentProduct.details[0].epd_id }}
           </v-card-subtitle>
           <v-divider></v-divider>
           <v-card-text>
@@ -46,19 +46,18 @@
                 </v-list>
               </v-col>
               <v-col cols="12" md="6">
-                <h3>Additional Details</h3>
-                <p v-if="productStore.currentProduct.description">
-                  {{ productStore.currentProduct.description }}
-                </p>
-                <div v-if="extraDetails.length > 0">
-                  <v-divider class="my-3"></v-divider>
+                <h3>Impacts</h3>
                   <v-list>
-                    <v-list-item v-for="detail in extraDetails" :key="detail.key">
-                      <v-list-item-title>{{ formatKey(detail.key) }}:</v-list-item-title>
-                      <v-list-item-subtitle>{{ detail.value }}</v-list-item-subtitle>
+                    <v-list-item v-for="(impactValues, impactKey) in productStore.currentProduct.details[0].impacts" key="impactKey">
+                      <v-list-item-title>{{ impactKey}}</v-list-item-title>
+                      <v-list-item-subtitle> </v-list-item-subtitle>
+                      <ul>
+                        <li v-for="(value, key) in impactValues" :key="key">
+                          {{ key }}: {{ value }}
+                        </li>
+                      </ul>
                     </v-list-item>
                   </v-list>
-                </div>
               </v-col>
             </v-row>
           </v-card-text>

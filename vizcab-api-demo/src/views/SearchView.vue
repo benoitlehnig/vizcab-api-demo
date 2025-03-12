@@ -55,7 +55,7 @@
       >
         <v-card 
           class="mx-auto" 
-          @click="viewProduct(product.id)"
+          @click="viewProduct(product.epd.identification.vizcab_internal_id)"
           hover
         >
           <v-card-title>{{ product.epd.name}}</v-card-title>
@@ -64,7 +64,7 @@
             <div v-if="product.description">{{ product.epd.description.function }}</div>
           </v-card-text>
           <v-card-actions>
-            <v-btn text color="primary" @click.stop="viewProduct(product.id)">
+            <v-btn text color="primary" @click.stop="viewProduct(product.epd.identification.vizcab_internal_id)">
               View Details
             </v-btn>
           </v-card-actions>

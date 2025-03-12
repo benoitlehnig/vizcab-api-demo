@@ -81,7 +81,10 @@ export const useProductStore = defineStore('product', {
       this.error = null
       
       try {
+        console.log("getProductDetails", id)
         const response = await productService.getProductDetails(id)
+        console.log("getProductDetails", response)
+
         this.currentProduct = response.data
         return response.data
       } catch (error) {
