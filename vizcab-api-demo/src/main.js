@@ -9,4 +9,7 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(vuetify)
-app.mount('#app')
+// Ensure Vue mounts only after DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+    app.mount("#app")
+  })

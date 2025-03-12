@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [vue()],
-  //build: {
-  //  outDir: 'dist',  // Ensure correct output directory
-  //  sourcemap: true, // Helps debugging
-  //},
-})
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+  },
+  base: command === 'serve' ? '/' : '/vizcab-api-demo/', // ✅ Dynamic base path
+}));
