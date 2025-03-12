@@ -10,12 +10,11 @@ const authService = {
   },
   
   logout() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
+   
   },
   
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'))
+    
   }
 }
 

@@ -28,10 +28,11 @@
       <v-col cols="12">
         <v-card>
           <v-card-title>
-            {{ productStore.currentProduct.details[0].name }}
+            {{ productStore.currentProduct.name }}
           </v-card-title>
           <v-card-subtitle>
-            ID: {{ productStore.currentProduct.details[0].epd_id }}
+            ID: {{ productStore.currentProduct.identification.po_registration_id
+ }}
           </v-card-subtitle>
           <v-divider></v-divider>
           <v-card-text>
@@ -39,16 +40,28 @@
               <v-col cols="12" md="6">
                 <h3>Product Information</h3>
                 <v-list>
-                  <v-list-item v-for="(value, key) in displayProperties" :key="key">
-                    <v-list-item-title>{{ formatKey(key) }}:</v-list-item-title>
-                    <v-list-item-subtitle>{{ value }}</v-list-item-subtitle>
+                  <v-list-item>
+                    <v-list-item-title>Manufacturer:</v-list-item-title>
+                    <v-list-item-subtitle>{{ productStore.currentProduct.manufacturer.name }}</v-list-item-subtitle>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title>Functional Unit:</v-list-item-title>
+                    <v-list-item-subtitle>{{ productStore.currentProduct.declared_unit.name }}</v-list-item-subtitle>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title>Reference Service Life (years):</v-list-item-title>
+                    <v-list-item-subtitle>{{ productStore.currentProduct.modelling.reference_service_life }}</v-list-item-subtitle>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-title>Type:</v-list-item-title>
+                    <v-list-item-subtitle>{{ productStore.currentProduct.modelling.subtype.name }}</v-list-item-subtitle>
                   </v-list-item>
                 </v-list>
               </v-col>
               <v-col cols="12" md="6">
-                <h3>Impacts</h3>
+                <h3>Impacts (for 1 UF over 50 years)</h3>
                   <v-list>
-                    <v-list-item v-for="(impactValues, impactKey) in productStore.currentProduct.details[0].impacts" key="impactKey">
+                    <v-list-item v-for="(impactValues, impactKey) in productStore.currentProduct.impacts.details[0].impacts" key="impactKey">
                       <v-list-item-title>{{ impactKey}}</v-list-item-title>
                       <v-list-item-subtitle> </v-list-item-subtitle>
                       <ul>
@@ -89,8 +102,7 @@ export default {
 
     // Main product properties we want to display
     const displayProperties = computed(() => {
-      if (!productStore.currentProduct) return {}
-      
+      if (!productStore.currentProduct ) return {}
       const { id, name, description, ...rest } = productStore.currentProduct
       // Filter out properties we want to show in main section
       const mainProps = {}

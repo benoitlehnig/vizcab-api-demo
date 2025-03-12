@@ -12,7 +12,7 @@ const productService = {
     })
   },
   
-  getProductDetails(id) {
+  getProductImpacts(id) {
     return apiService.post('/impacts/new',{
       components: [
         {
@@ -24,6 +24,10 @@ const productService = {
       ]
     
   })
+  },
+
+  getProductDetails(id) {
+    return apiService.get(`/epd/${id}`)
   }
 }
 

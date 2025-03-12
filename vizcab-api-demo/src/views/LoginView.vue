@@ -65,10 +65,7 @@ export default {
     const router = useRouter()
 
     const login = async () => {
-     
-      
       const success = await authStore.login(email.value, password.value)
-      console.log(success)
       if (success) {
         router.push('/search')
       }
