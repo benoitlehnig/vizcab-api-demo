@@ -36,29 +36,37 @@
       </v-col>
     </v-row>
 
-    <v-row v-else-if="productStore.searchResults.length > 0">
-      <v-col v-for="product in productStore.searchResults" :key="product.id" cols="12">
+    <v-row dense v-else-if="productStore.searchResults.length > 0" class="mt-4">
+      <v-col v-for="product in productStore.searchResults" :key="product.id" md="4" cols="auto">
         <v-card
-          class="mx-auto"
+          class="pb-3"
+          border
+          flat
           @click="viewProduct(product.epd.identification.vizcab_internal_id)"
           hover
         >
-          <v-card-title>{{ product.epd.name }}</v-card-title>
-          <v-card-subtitle>{{ product.epd.identification.po_registration_id }}</v-card-subtitle>
-          <v-card-text>
-            <div v-if="product.description">
-              {{ product.epd.description.function }}
+          <v-list-item :subtitle="product.epd.name" class="mb-2">
+            <template v-slot:title>
+              <strong class="text-h6 mb-2 text-truncate">{{ product.epd.name }}</strong>
+            </template>
+          </v-list-item>
+          <div class="d-flex justify-space-between px-4">
+            <div class="d-flex align-center text-caption text-medium-emphasis me-1">
+              <v-icon icon="mdi-identifier" start></v-icon>
+
+              <div class="text-truncate">{{ product.epd.identification.po_registration_id }}</div>
             </div>
-          </v-card-text>
-          <v-card-actions>
+
             <v-btn
-              text
-              color="primary"
+              class="text-none"
+              size="small"
+              text="More info"
+              variant="flat"
+              border
               @click.stop="viewProduct(product.epd.identification.vizcab_internal_id)"
             >
-              View Details
             </v-btn>
-          </v-card-actions>
+          </div>
         </v-card>
       </v-col>
     </v-row>
@@ -85,9 +93,13 @@
 import { ref, computed } from 'vue'
 import { useProductStore, useAuthStore } from '../store'
 import { useRouter } from 'vue-router'
+import PDFThumbnail from '../components/PDFThumbnail.vue'
 
 export default {
   name: 'SearchView',
+  components: {
+    PDFThumbnail,
+  },
   setup() {
     const searchQuery = ref('')
     const productStore = useProductStore()
@@ -106,6 +118,7 @@ export default {
 
       searched.value = true
       await productStore.searchProducts(searchQuery.value, page.value, limit)
+      console.log(productStore.searchResults)
     }
 
     const handlePageChange = async (newPage) => {
