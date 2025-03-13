@@ -7,23 +7,23 @@ const API_URL = 'https://api.vizcab.io/' // Replace with your actual API base UR
 const apiService = axios.create({
   baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 })
 
 // ✅ Optimized request interceptor
 apiService.interceptors.request.use(
-  config => {
+  (config) => {
     // Ensure store is accessed correctly
-    const authStore = useAuthStore();
+    const authStore = useAuthStore()
 
     if (authStore?.accessToken) {
-      config.headers.Authorization = `JWT ${authStore.accessToken}`;
+      config.headers.Authorization = `JWT ${authStore.accessToken}`
     }
-    
-    return config;
-  },
-  error => Promise.reject(error)
-);
 
-export default apiService;
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
+export default apiService

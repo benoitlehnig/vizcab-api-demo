@@ -27,21 +27,12 @@
                 required
               ></v-text-field>
             </v-form>
-            <v-alert
-              v-if="authStore.error"
-              type="error"
-              dense
-            >
+            <v-alert v-if="authStore.error" type="error" dense>
               {{ authStore.error }}
             </v-alert>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn 
-              color="primary" 
-              @click="login" 
-              :loading="authStore.loading"
-            >
+            <v-btn variant="flat" color="primary" @click="login" block :loading="authStore.loading">
               Login
             </v-btn>
           </v-card-actions>
@@ -75,8 +66,8 @@ export default {
       email,
       password,
       authStore,
-      login
+      login,
     }
-  }
+  },
 }
 </script>

@@ -1,38 +1,27 @@
 // src/views/SearchView.vue
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="d-flex align-center">
-            <span>Product Search</span>
-            <v-spacer></v-spacer>
-            <v-btn color="error" @click="logout">
-              Logout
-            </v-btn>
-          </v-card-title>
-          <v-card-text>
-            <v-text-field
-              v-model="searchQuery"
-              label="Search Products"
-              prepend-icon="mdi-magnify"
-              clearable
-              @keyup.enter="search"
-            ></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn 
-              color="primary" 
-              @click="search"
-              :loading="productStore.loading"
-            >
-              Search
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+    <v-toolbar>
+      <v-toolbar-title text="Product Search"></v-toolbar-title>
 
+      <v-spacer></v-spacer>
+      <v-text-field
+        density="compact"
+        v-model="searchQuery"
+        label="Search Products"
+        clearable
+        prepend-inner-icon="mdi-magnify"
+        variant="solo"
+        width="200"
+        flat
+        hide-details
+        single-line
+        @keyup.enter="search"
+      ></v-text-field>
+      <v-spacer></v-spacer>
+
+      <v-btn icon="mdi-export" @click="logout"></v-btn>
+    </v-toolbar>
     <v-row v-if="productStore.error">
       <v-col cols="12">
         <v-alert type="error">
@@ -48,23 +37,25 @@
     </v-row>
 
     <v-row v-else-if="productStore.searchResults.length > 0">
-      <v-col 
-        v-for="product in productStore.searchResults" 
-        :key="product.id"
-        cols="12" sm="6" md="4"
-      >
-        <v-card 
-          class="mx-auto" 
+      <v-col v-for="product in productStore.searchResults" :key="product.id" cols="12">
+        <v-card
+          class="mx-auto"
           @click="viewProduct(product.epd.identification.vizcab_internal_id)"
           hover
         >
-          <v-card-title>{{ product.epd.name}}</v-card-title>
+          <v-card-title>{{ product.epd.name }}</v-card-title>
           <v-card-subtitle>{{ product.epd.identification.po_registration_id }}</v-card-subtitle>
           <v-card-text>
-            <div v-if="product.description">{{ product.epd.description.function }}</div>
+            <div v-if="product.description">
+              {{ product.epd.description.function }}
+            </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn text color="primary" @click.stop="viewProduct(product.epd.identification.vizcab_internal_id)">
+            <v-btn
+              text
+              color="primary"
+              @click.stop="viewProduct(product.epd.identification.vizcab_internal_id)"
+            >
               View Details
             </v-btn>
           </v-card-actions>
@@ -74,9 +65,7 @@
 
     <v-row v-else-if="searched">
       <v-col cols="12">
-        <v-alert type="info">
-          No products found. Try a different search term.
-        </v-alert>
+        <v-alert type="info"> No products found. Try a different search term. </v-alert>
       </v-col>
     </v-row>
 
@@ -114,7 +103,7 @@ export default {
 
     const search = async () => {
       if (!searchQuery.value) return
-      
+
       searched.value = true
       await productStore.searchProducts(searchQuery.value, page.value, limit)
     }
@@ -142,8 +131,8 @@ export default {
       totalPages,
       handlePageChange,
       searched,
-      logout
+      logout,
     }
-  }
+  },
 }
 </script>

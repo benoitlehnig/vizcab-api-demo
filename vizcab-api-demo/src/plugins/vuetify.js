@@ -9,8 +9,8 @@ const vuetify = createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'light'
-  }
+    defaultTheme: 'light',
+  },
 })
 
 export default vuetify

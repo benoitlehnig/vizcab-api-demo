@@ -5,17 +5,13 @@ const authService = {
   login(email, password) {
     return apiService.post('/token/', {
       email,
-      password
+      password,
     })
   },
-  
-  logout() {
-   
-  },
-  
-  getCurrentUser() {
-    
-  }
+
+  logout() {},
+
+  getCurrentUser() {},
 }
 
 export default authService

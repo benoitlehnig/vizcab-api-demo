@@ -8,4 +8,4 @@ export default defineConfig(({ command }) => ({
     sourcemap: true,
   },
   base: command === 'serve' ? '/' : '/vizcab-api-demo/', // ✅ Fixes GitHub Pages & Local Build
-}));
+}))

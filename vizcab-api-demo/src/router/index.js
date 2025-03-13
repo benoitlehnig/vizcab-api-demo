@@ -8,40 +8,43 @@ import { useAuthStore } from '../store' // Import the auth store
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/login',
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    component: LoginView,
   },
   {
     path: '/search',
     name: 'search',
     component: SearchView,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: '/product/:id',
     name: 'product-detail',
     component: ProductDetailView,
-    meta: { requiresAuth: true }
-  }
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
 })
 
 // Navigation guard to check authentication
 router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore(); // ✅ Create an instance
+  const authStore = useAuthStore() // ✅ Create an instance
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !authStore.isAuthenticated) {
-    next('/login');
+  if (
+    to.matched.some((record) => record.meta.requiresAuth) &&
+    !authStore.isAuthenticated
+  ) {
+    next('/login')
   } else {
-    next();
+    next()
   }
 })
 

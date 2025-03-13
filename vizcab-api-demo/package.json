@@ -8,7 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist" 
+    "deploy": "gh-pages -d dist",
+    "lint": "eslint --ext .vue,.js,.ts src",
+    "lint:fix": "eslint --ext .vue,.js,.ts src --fix"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -19,8 +21,15 @@
     "vuetify": "^3.7.0-beta.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.22.0",
     "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-vue": "^10.0.0",
     "gh-pages": "^6.3.0",
+    "prettier": "^3.5.3",
     "vite": "^6.2.0"
   }
 }
